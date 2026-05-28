@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pintura de Rua - Copa na Praça</title>
+    <style>
+        :root {
+            --verde: #009c3b;
+            --amarelo: #ffdf00;
+            --azul: #002776;
+            --cinza-escuro: #333333;
+            --cinza-claro: #f4f4f9;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: var(--cinza-claro);
+            margin: 0;
+            padding: 15px;
+            color: var(--cinza-escuro);
+            line-height: 1.4;
+        }
+        .container {
+            max-width: 420px;
+            background: white;
+            padding: 25px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 20px auto;
+        }
+        .foto-projeto {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+        h1 { 
+            color: var(--azul); 
+            font-size: 24px; 
+            margin: 10px 0 5px 0; 
+        }
+        .subtitle { 
+            color: #555; 
+            margin-top: 0; 
+            font-size: 14px; 
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        /* Barra de Progresso */
+        .progress-container { 
+            background: #eee; 
+            border-radius: 10px; 
+            height: 20px; 
+            width: 100%; 
+            margin: 8px 0 5px 0; 
+            overflow: hidden; 
+        }
+        .progress-bar { 
+            background: var(--verde); 
+            height: 100%; 
+            width: 30%; /* Altere a porcentagem do progresso aqui */ 
+            transition: width 0.5s; 
+        }
+        .valores { 
+            font-weight: bold; 
+            font-size: 16px; 
+            color: var(--azul); 
+        }
+        .aviso-tempo {
+            font-size: 11px;
+            color: #777;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        /* Caixa de Informações do PIX */
+        .info-pix {
+            background-color: #f9f9fb;
+            border-left: 4px solid var(--amarelo);
+            padding: 12px;
+            margin: 20px 0 15px 0;
+            font-size: 14px;
+            text-align: left;
+            border-radius: 0 8px 8px 0;
+        }
+        .info-pix p {
+            margin: 4px 0;
+        }
+        
+        .btn-copiar {
+            background-color: var(--azul);
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 5px;
+            transition: background 0.2s;
+        }
+        .sucesso { 
+            background-color: var(--verde) !important; 
+        }
+
+        /* Rodapé Informativo */
+        .rodape-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            text-align: left;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Foto do Projeto (Coloque uma imagem chamada foto-projeto.jpg na pasta) -->
+    <img src="foto-projeto.jpg" alt="Foto do Projeto Pintura de Rua" class="foto-projeto">
+
+    <h1>Copa na Praça 🇧🇷</h1>
+    
+    <!-- Texto de introdução -->
+    <p class="subtitle">Contribua com a aquisição de tintas e materiais necessários para finalizarmos o projeto Pintura de Rua - Copa na Praça</p>
+
+    <!-- Progresso Arrecadação -->
+    <div>
+        <span class="valores">Arrecadado: R$ 450 de R$ 1.500</span>
+        <div class="progress-container">
+            <!-- Mude o "width: 30%;" abaixo para ajustar o preenchimento da barra -->
+            <div class="progress-bar" style="width: 30%;"></div>
+        </div>
+        <!-- Aviso sobre atualização de valores -->
+        <div class="aviso-tempo">A atualização de valores pode levar cerca de 10 minutos.</div>
+    </div>
+
+    <p style="font-size: 14px; font-weight: bold; color: #444; margin-bottom: 5px; margin-top: 10px;">Para doar, copie a chave PIX abaixo:</p>
+
+    <!-- Dados de titularidade, tipo de chave e banco -->
+    <div class="info-pix">
+        <p><strong>Tipo de Chave:</strong> CPF</p>
+        <p><strong>Titular:</strong> LUCAS H. MONFINATI</p>
+        <p><strong>Banco:</strong> Santander</p>
+    </div>
+
+    <!-- Botão Copiar -->
+    <button class="btn-copiar" id="btnPix" onclick="copiarPix()">📋 COPIAR CHAVE PIX</button>
+
+    <!-- Texto informativo final -->
+    <div class="rodape-info">
+        O projeto Pintura de Rua está sendo organizado por voluntários e está autorizado pela prefeitura municipal de Itapira. Visite na Praça Mogi Mirim, Santa Cruz, próximo a Escola ESO.
+    </div>
+</div>
+
+<script>
+    // ⚠️ SUBSTITUA O TEXTO ABAIXO COM O SEU CPF REAL (Apenas os números, ex: "12345678900")
+    const chavePix = "47699516800"; 
+
+    function copiarPix() {
+        navigator.clipboard.writeText(chavePix).then(() => {
+            const btn = document.getElementById('btnPix');
+            btn.innerText = "✅ Copiado, cole no app de seu Banco";
+            btn.classList.add('sucesso');
+            
+            // Retorna ao normal após 4 segundos
+            setTimeout(() => {
+                btn.innerText = "📋 COPIAR CHAVE PIX";
+                btn.classList.remove('sucesso');
+            }, 4000);
+        }).catch(err => {
+            alert('Erro ao copiar automaticamente. Por favor, utilize a chave: ' + chavePix);
+        });
+    }
+</script>
+
+</body>
+</html>
